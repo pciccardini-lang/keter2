@@ -118,6 +118,20 @@ const KETER_DATA = window.KETER_DATA;
 const HEBREW_RE = /[\u0590-\u05FF]/;
 const isHebrewText = (s) => s && HEBREW_RE.test(s);
 
+// isHebrewText dice solo se c'è dell'ebraico: le definizioni italiane che
+// citano parole ebraiche risulterebbero "ebraiche" e verrebbero rese in rtl,
+// spingendo la prosa italiana a destra. Per direzione e allineamento serve
+// invece sapere quale scrittura prevale.
+const HEBREW_CHARS_RE = /[\u0590-\u05FF]/g;
+const LATIN_CHARS_RE = /[A-Za-z\u00C0-\u024F]/g;
+const isHebrewDominant = (s) => {
+  if (!s) return false;
+  const t = String(s);
+  const heb = (t.match(HEBREW_CHARS_RE) || []).length;
+  const lat = (t.match(LATIN_CHARS_RE) || []).length;
+  return heb > lat;
+};
+
 const FIELD_LABELS = {
   Parola: 'Parola',
   Traduzione: 'Traduzione',
@@ -137,15 +151,16 @@ const ARTICLES_SEED = window.ARTICLES_SEED;
 
 function FieldText({ text }) {
   if (!text) return null;
-  const heb = isHebrewText(text);
+  const heb = isHebrewDominant(text);
+  const hasHeb = isHebrewText(text);
   return (
     <div
       dir={heb ? 'rtl' : 'ltr'}
       style={{
-        fontFamily: heb ? "'Frank Ruhl Libre', 'David Libre', serif" : "'Cormorant Garamond', Georgia, serif",
+        fontFamily: hasHeb ? "'Frank Ruhl Libre', 'David Libre', serif" : "'Cormorant Garamond', Georgia, serif",
         whiteSpace: 'pre-wrap',
         lineHeight: 1.6,
-        textAlign: heb ? undefined : 'center',
+        textAlign: heb ? 'right' : 'left',
       }}
     >
       {text}
@@ -2071,7 +2086,7 @@ function Keter() {
                 <input
                   value={draft.Traduzione || ''}
                   onChange={(ev) => updateDraftField('Traduzione', ev.target.value)}
-                  dir={isHebrewText(draft.Traduzione) ? 'rtl' : 'ltr'}
+                  dir={isHebrewDominant(draft.Traduzione) ? 'rtl' : 'ltr'}
                   placeholder="Traduzione italiana"
                   style={{
                     width: '100%',
@@ -2111,7 +2126,7 @@ function Keter() {
                     <textarea
                       value={draft[field] || ''}
                       onChange={(ev) => updateDraftField(field, ev.target.value)}
-                      dir={isHebrewText(draft[field]) ? 'rtl' : 'ltr'}
+                      dir={isHebrewDominant(draft[field]) ? 'rtl' : 'ltr'}
                       rows={3}
                       style={{
                         width: '100%',
