@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Keter · כֶּתֶר</title>
+  <meta name="theme-color" content="#0e1a13" />
+  <meta name="description" content="Keter — lessico ebraico-italiano e testi di Agnon e Shabtai" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #0e1a13; min-height: 100%; }
+    #splash {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      background: #0e1a13; color: #c9a24b; z-index: 999;
+      font-family: 'Frank Ruhl Libre', serif;
+    }
+    #splash .crown { font-size: 54px; }
+    #splash .name { font-size: 30px; letter-spacing: 2px; }
+    #splash .hint { font-family: 'Inter', sans-serif; font-size: 12px; color: #67a377; }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div class="crown">👑</div>
+    <div class="name">כֶּתֶר</div>
+    <div class="hint">caricamento…</div>
+  </div>
+  <div id="root"></div>
+
+  <!-- Librerie -->
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+
+  <script>
+    // ---------- Shim di window.storage basato su localStorage ----------
+    // Stessa interfaccia dell'API storage degli artifact di Claude, così
+    // il codice dell'app funziona identico ma con persistenza reale.
+    (function () {
+      if (window.storage) return;
+      window.storage = {
+        async get(key) {
+          const v = localStorage.getItem('keter-storage:' + key);
+          if (v === null) throw new Error('key not found: ' + key);
+          return { key, value: v, shared: false };
+        },
+        async set(key, value) {
+          localStorage.setItem('keter-storage:' + key, value);
+          return { key, value, shared: false };
+        },
+        async delete(key) {
+          localStorage.removeItem('keter-storage:' + key);
+          return { key, deleted: true, shared: false };
+        },
+        async list(prefix) {
+          const keys = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('keter-storage:')) {
+              const bare = k.slice('keter-storage:'.length);
+              if (!prefix || bare.startsWith(prefix)) keys.push(bare);
+            }
+          }
+          return { keys, prefix, shared: false };
+        },
+      };
+    })();
+
+    // ---------- Icone: wrapper React sui dati di lucide (UMD vanilla) ----------
+    (function () {
+      function lucideIcon(candidates) {
+        return function Icon(props) {
+          props = props || {};
+          var node = null;
+          var lib = window.lucide && (window.lucide.icons || window.lucide);
+          if (lib) {
+            for (var i = 0; i < candidates.length; i++) {
+              if (lib[candidates[i]]) { node = lib[candidates[i]]; break; }
+            }
+          }
+          // Formati possibili: [[tag,attrs],...] oppure [tag, attrs, children]
+          var children;
+          if (Array.isArray(node) && node.length && Array.isArray(node[0])) {
+            children = node.map(function (c, i) {
+              return React.createElement(c[0], Object.assign({ key: i }, c[1]));
+            });
+          } else if (Array.isArray(node) && node.length === 3 && Array.isArray(node[2])) {
+            children = node[2].map(function (c, i) {
+              return React.createElement(c[0], Object.assign({ key: i }, c[1]));
+            });
+          } else {
+            children = [React.createElement('circle', { key: 0, cx: 12, cy: 12, r: 9 })];
+          }
+          var size = props.size || 24;
+          return React.createElement('svg', {
+            xmlns: 'http://www.w3.org/2000/svg',
+            width: size, height: size, viewBox: '0 0 24 24',
+            fill: 'none', stroke: props.color || 'currentColor',
+            strokeWidth: props.strokeWidth || 2,
+            strokeLinecap: 'round', strokeLinejoin: 'round',
+            style: props.style, className: props.className,
+          }, children);
+        };
+      }
+      window.KeterIcons = {
+        Search: lucideIcon(['Search']),
+        X: lucideIcon(['X']),
+        Crown: lucideIcon(['Crown']),
+        Tag: lucideIcon(['Tag']),
+        ChevronRight: lucideIcon(['ChevronRight']),
+        Edit3: lucideIcon(['Edit3', 'PenLine', 'Pencil']),
+        Save: lucideIcon(['Save']),
+        RotateCcw: lucideIcon(['RotateCcw']),
+        BookOpen: lucideIcon(['BookOpen']),
+        Library: lucideIcon(['Library', 'LibraryBig', 'BookOpen']),
+        Link2: lucideIcon(['Link2', 'Link']),
+        Plus: lucideIcon(['Plus']),
+        Download: lucideIcon(['Download']),
+        Upload: lucideIcon(['Upload']),
+        Feather: lucideIcon(['Feather']),
+        PenLine: lucideIcon(['PenLine', 'Edit3', 'Pencil']),
+        FileUp: lucideIcon(['FileUp', 'Upload']),
+      };
+    })();
+
+    // ---------- Service worker per l'uso offline ----------
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
+      });
+    }
+  </script>
+
+  <!-- Dati (JS puro, non passa da Babel: caricamento rapido) -->
+  <script src="./data.js"></script>
+
+  <!-- Applicazione (JSX compilato nel browser da Babel) -->
+  <script type="text/babel" data-presets="react" src="./app.jsx"></script>
+</body>
+</html>
