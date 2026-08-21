@@ -2116,7 +2116,8 @@ function Keter() {
                       fontSize: 11,
                       letterSpacing: 1,
                       textTransform: 'uppercase',
-                      color: '#6b6250',
+                      color: '#ffd24d',
+                      fontWeight: 600,
                       marginBottom: 6,
                     }}
                   >
@@ -2157,7 +2158,8 @@ function Keter() {
                     fontSize: 11,
                     letterSpacing: 1,
                     textTransform: 'uppercase',
-                    color: '#6b6250',
+                    color: '#ffd24d',
+                    fontWeight: 600,
                     marginBottom: 6,
                   }}
                 >
@@ -2198,7 +2200,8 @@ function Keter() {
                     fontSize: 11,
                     letterSpacing: 1,
                     textTransform: 'uppercase',
-                    color: '#6b6250',
+                    color: '#ffd24d',
+                    fontWeight: 600,
                     marginBottom: 6,
                   }}
                 >
@@ -2394,7 +2397,8 @@ function Keter() {
                   fontSize: 11,
                   letterSpacing: 1,
                   textTransform: 'uppercase',
-                  color: '#6b6250',
+                  color: '#ffd24d',
+                  fontWeight: 600,
                   marginBottom: 6,
                 }}
               >
@@ -2432,7 +2436,8 @@ function Keter() {
                   fontSize: 11,
                   letterSpacing: 1,
                   textTransform: 'uppercase',
-                  color: '#6b6250',
+                  color: '#ffd24d',
+                  fontWeight: 600,
                   marginBottom: 6,
                 }}
               >
@@ -2482,7 +2487,8 @@ function Keter() {
                   fontSize: 11,
                   letterSpacing: 1,
                   textTransform: 'uppercase',
-                  color: '#6b6250',
+                  color: '#ffd24d',
+                  fontWeight: 600,
                   marginBottom: 6,
                 }}
               >
