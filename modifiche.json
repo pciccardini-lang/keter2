@@ -1,5 +1,17 @@
 {
-  "lessico": {},
+  "lessico": {
+    "v-1787965432100": {
+      "id": "v-1787965432100",
+      "Parola": "סחט מַיִם מִן הַסֶּלַע",
+      "Traduzione": "spremere acqua dalla roccia; pretendere l'impossibile, esigere da chi non ha nulla da dare",
+      "Definizione": "Locuzione idiomatica dell'ebraico moderno. Si dice dello sforzo di ottenere qualcosa da una fonte che per sua natura non può darla — denaro da un nullatenente, compassione da chi non ne ha, risultati da mezzi inesistenti. Equivale all'italiano «non si può cavare sangue dalle rape» e all'inglese blood from a stone.\n\nLa radice ס־ח־ט significa «spremere, strizzare», ma in ebraico moderno vale anche «estorcere, ricattare» (סְחִיטָה = estorsione). La locuzione conserva quindi un fondo di violenza: non è solo un'impresa vana, è una pressione esercitata su chi non può cedere.\n\nL'immagine è biblica e l'uso corrente la capovolge per ironia. A Meriva l'acqua dalla roccia esce davvero — è il miracolo per eccellenza della traversata del deserto. La locuzione moderna prende quella scena e la nega: ciò che per Mosè era possibile solo per intervento divino diventa l'emblema dell'impossibile umanooo",
+      "Coniugazione": "לִסְחֹט: infinito costrutto qal della radice ס־ח־ט. Passato סָחַט, presente סוֹחֵט (f. סוֹחֶטֶת), futuro יִסְחַט. Nome d'azione סְחִיטָה. Derivati: מַסְחֵטָה «spremitoio, spremiagrumi», סַחְטָן «ricattatore».",
+      "Declinazioni": "Grafia piena (כתיב מלא): לסחוט מים מן הסלע.\nVarianti correnti: לִסְחֹט מַיִם מֵאֶבֶן (dalla pietra); לסחוט מים מסלע (senza articolo).\nRicorre spesso in forma negativa: אִי אֶפְשָׁר לִסְחֹט מַיִם מִן הַסֶּלַע.",
+      "Esempi": "אִי אֶפְשָׁר לִסְחֹט מַיִם מִן הַסֶּלַע — non si cava sangue dalle rape.\nאַל תְּנַסֶּה לִסְחֹט מִמֶּנּוּ כֶּסֶף, זֶה כְּמוֹ לִסְחֹט מַיִם מִן הַסֶּלַע — non provare a cavargli soldi, è come spremere acqua dalla roccia.\nמַה שֶּׁאֵין, אֵין — quel che non c'è, non c'è (equivalente colloquiale).",
+      "Citazione": "במדבר כ, ח: וְדִבַּרְתֶּם אֶל הַסֶּלַע לְעֵינֵיהֶם וְנָתַן מֵימָיו וְהוֹצֵאתָ לָהֶם מַיִם מִן הַסֶּלַע\nבמדבר כ, יא: וַיַּךְ אֶת הַסֶּלַע בְּמַטֵּהוּ פַּעֲמָיִם וַיֵּצְאוּ מַיִם רַבִּים\nשמות יז, ו: וְהִכִּיתָ בַצּוּר וְיָצְאוּ מִמֶּנּוּ מַיִם וְשָׁתָה הָעָם",
+      "Tag": "ניבים"
+    }
+  },
   "testi": [],
   "articoli": [],
   "eliminati": {
