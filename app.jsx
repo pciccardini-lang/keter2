@@ -29,11 +29,11 @@ function normalizeHebrew(s) {
 
 // ---------- Versione (visibile nel pannello di pubblicazione) ----------
 // Incrementare a ogni deploy per verificare che il sito serva il file nuovo.
-const KETER_VERSION = 33;
+const KETER_VERSION = 35;
 
 // ---------- Pubblicazione su GitHub ----------
 const GH_OWNER = 'pciccardini-lang';
-const GH_REPO = 'keter';
+const GH_REPO = 'keter2';
 const GH_FILE = 'modifiche.json';
 const GH_BRANCH = 'main';
 
@@ -579,7 +579,7 @@ function Keter() {
     try { token = localStorage.getItem('keter-github-token') || ''; } catch (e) {}
     if (!token || forceAsk) {
       token = (window.prompt(
-        "Per pubblicare serve un token personale GitHub (fine-grained) con permesso Contents: Read and write sul repository keter.\nSi crea su github.com \u2192 Settings \u2192 Developer settings \u2192 Personal access tokens.\nVerr\u00e0 salvato solo su questo dispositivo."
+        "Per pubblicare serve un token personale GitHub (fine-grained) con permesso Contents: Read and write sul repository keter2.\nSi crea su github.com \u2192 Settings \u2192 Developer settings \u2192 Personal access tokens.\nVerr\u00e0 salvato solo su questo dispositivo."
       ) || '').trim();
       if (token) { try { localStorage.setItem('keter-github-token', token); } catch (e) {} }
     }
